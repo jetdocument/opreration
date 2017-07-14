@@ -1,0 +1,205 @@
+<?php 
+
+/*
+
+Just data from js post
+
+case_id : case_id,
+status : status,
+action_desc : action_desc,
+action_to : action_to
+
+$_REQUEST['case_id']
+$_REQUEST['status']
+$_REQUEST['action_desc']
+$_REQUEST['action_to']
+
+field insert
+// `id`,
+       //   `service_id`,
+       //   `action_time`,
+       //   `action_by`,
+       //   `action_desc`,
+       //   `action_to`,
+       //   `file`,
+       //   `picture`,
+       //   `status`,
+       //   `created_at`,
+       //   `updated_at`
+
+
+Email require
+case_id       : json.data.case_id,
+subject       : subject,
+c_name        : c_name,
+c_number      : c_number,
+c_email       : c_email,
+action_email  : action_email,
+c_company     : c_company,
+estimate_id   : estimate_id,
+duty          : duty,
+urgent        : urgent,
+desc          : desc,
+request_date  : request_date
+*/
+
+session_start();
+
+#if($_SESSION['user']){ echo $_SESSION['user'];}
+
+if (!isset($_SESSION['user'])) {
+header('Location: login.html'); 
+}
+
+# get resource
+
+require ("../../config/php_conf.cfg");
+
+try { 
+
+  $dbh = new PDO('mysql:host='.$servername.';dbname='.$dbname, $username, $password);
+  $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $dbh->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+  $dbh->exec("set names utf8");
+  // $dbh->setAttribute(PDO::ATTR_AUTOCOMMIT, FALSE);
+  // die(json_encode(array('outcome' => true)));
+  $return['message'] = "Mysqli Connected";
+} catch (Exception $e) {
+  $return['status'] = "error";
+  $return['message'] = "Unable to connect to Mysql";
+  $return['data']['error'] = $e->getMessage();
+  die(json_encode($return));
+}
+
+
+try {
+
+	// $_REQUEST['case_id'] = "OS20170511001";
+	// $_REQUEST['action_desc'] = "xxxxx";
+	// $_REQUEST['action_to'] = "jetdocument";
+	// $_REQUEST['status'] = "Done";
+
+	$get_max_time_action_number = "SELECT MAX(`action_time`) FROM `service_action` WHERE `service_id` = '".$_REQUEST['case_id']."'";
+
+	$results = $dbh -> prepare($get_max_time_action_number);
+  $results -> execute();
+  $result = $results -> fetch();
+  
+  $service_id = $_REQUEST['case_id'];
+  $action_time = $result['MAX(`action_time`)']+1;
+  $action_by = $_SESSION['user'];
+  $action_desc = $_REQUEST['action_desc'];
+
+  if ($_REQUEST['action_to'] == "") {
+    # code...
+    $action_to = $_SESSION['user'];
+  } else {
+    # code...
+    $action_to = $_REQUEST['action_to'];
+  }
+  
+
+  
+	$status = $_REQUEST['action_status'];
+
+	$insert_to_service_action = "
+		INSERT
+		INTO
+		  `service_action`(		    
+		    `service_id`,
+		    `action_time`,
+		    `action_by`,
+		    `action_desc`,
+		    `action_to`,
+		    `file`,
+		    `picture`,
+		    `status`
+		  )
+		VALUES(
+		  '".$service_id."',
+	      '".$action_time."',
+	      '".$action_by."',
+	      '".$action_desc."',
+	      '".$action_to."',
+	      '',
+	      '',
+	      '".$status."'
+		)";
+
+	 try {          
+
+          $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          $dbh->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);      
+          $dbh->beginTransaction();
+          $stmt1 = $dbh->prepare($insert_to_service_action);
+          $stmt1 -> execute();
+         
+          // $dbh->exec($insert_new_number);
+          // $dbh->exec($insert_new_case);                                     
+          $dbh->commit();
+          $return['message'] = "Commit add more action at : ".date("d-m-y H:i:s");
+
+        } catch (Exception $e) {
+          $dbh->rollBack();
+          $return['status']  = "error";
+          $return['message'] = "Rollback Transaction";
+          $return['data']['error'] = $e->getMessage();
+          $dbh = null;
+        }
+
+	$get_status_from_service_head = "SELECT `status` FROM `service_head` WHERE `service_id` = '".$_REQUEST['case_id']."'";
+
+	$results = $dbh -> prepare($get_status_from_service_head);
+    $results -> execute();
+    $result = $results -> fetch();
+
+    if ($result['status'] != $status) {
+    	# code...
+    	$update_status = "
+    		UPDATE
+			  `service_head`
+			SET			  
+			  `status` = '".$status."',
+        `duty` = '".$action_to."'
+			WHERE
+			  `service_id` = '".$_REQUEST['case_id']."'";
+
+		try {          
+
+          $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          $dbh->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);      
+          $dbh->beginTransaction();
+          $stmt1 = $dbh->prepare($update_status);
+          $stmt1 -> execute();
+         
+          // $dbh->exec($insert_new_number);
+          // $dbh->exec($insert_new_case);                                     
+          $dbh->commit();
+          $return['message'] = "Commit update status at : ".date("d-m-y H:i:s");
+
+        } catch (Exception $e) {
+          $dbh->rollBack();
+          $return['status']  = "error";
+          $return['message'] = "Rollback Transaction";
+          $return['data']['error'] = $e->getMessage();
+          $dbh = null;
+        }
+    }
+    	    	    
+
+} catch (Exception $e) {
+
+  $return['status'] = "error";
+  $return['message'] = "Query statement fail";
+  $return['data']['error'] = $e->getMessage();
+
+} finally {
+
+  echo json_encode($return);
+  $dbh = null;  
+
+} 
+
+
+
+?>

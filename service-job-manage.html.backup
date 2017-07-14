@@ -1,0 +1,936 @@
+<?php 
+#header( "location: http://www.google.com" );
+session_start();
+
+#if($_SESSION['user']){ echo $_SESSION['user'];}
+
+if (!isset($_SESSION['user'])) {
+header('Location: login.html'); 
+}
+#session_destroy();
+?>
+
+<!doctype html>
+<html>
+
+<head>
+
+    <!--Date Picker-->    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="stylesheet" type="text/css" href="datepicker/codebase/fonts/font_roboto/roboto.css"/>
+    <link rel="stylesheet" type="text/css" href="datepicker/codebase/dhtmlxcalendar.css"/>
+    <script src="datepicker/codebase/dhtmlxcalendar.js"></script>
+
+    <meta charset="UTF-8">
+    <!--IE Compatibility modes-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--Mobile first-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Operation Center</title>
+    
+    <meta name="description" content="Free Admin Template Based On Twitter Bootstrap 3.x">
+    <meta name="author" content="">
+    
+    <meta name="msapplication-TileColor" content="#5bc0de" />
+    <meta name="msapplication-TileImage" content="assets/img/metis-tile.png" />
+    
+    <meta name="description" content="Free Admin Template Based On Twitter Bootstrap 3.x">
+    <meta name="author" content="">
+
+    <link rel="shortcut icon" href="http://download.seaicons.com/download/i2968/ariil/alphabet/ariil-alphabet-letter-b.ico" />
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="assets/lib/bootstrap/css/bootstrap.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="assets/lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Metis core stylesheet -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    
+    <!-- metisMenu stylesheet -->
+    <link rel="stylesheet" href="assets/lib/metismenu/metisMenu.css">
+    
+    <!-- animate.css stylesheet -->
+    <link rel="stylesheet" href="assets/lib/animate.css/animate.css">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap.min.css">
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+    <!--For Development Only. Not required -->
+    <script>
+        // less = {
+        //     env: "development",
+        //     relativeUrls: false,
+        //     rootpath: "/assets/"
+        // };
+
+        less = {
+            env: "development",
+            relativeUrls: false,
+            rootpath: "datepicker"
+        };
+
+        var myCalendar;                    
+        function doOnLoad() {
+          myCalendar = new dhtmlXCalendarObject("calendar");                      
+        }
+
+        var user_group = "<?php echo $_SESSION['data']['group']; ?>";
+    </script>
+   
+    <link rel="stylesheet" href="assets/css/style-switcher.css">
+    <link rel="stylesheet/less" type="text/css" href="assets/less/theme.less">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.1/less.js"></script>
+
+    <link rel="stylesheet" href="assets/css/style-switcher.css">
+    <link rel="stylesheet/less" type="text/css" href="assets/less/theme.less">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.1/less.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  </head>
+
+        <body onload="doOnLoad();" class=" " >
+            <div class="bg-dark dk" id="wrap">
+                <div id="top">
+                    <!-- .navbar -->
+                    <nav class="navbar navbar-inverse navbar-static-top">
+                        <div class="container-fluid">
+                    
+                    
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <header class="navbar-header">
+                    
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a href="index.html" class="navbar-brand"><img src="assets/img/logo.png" alt=""></a>
+                    
+                            </header>
+                    
+                            <div class="topnav">
+                                <div class="btn-group">
+                                    <a data-placement="bottom" data-original-title="Fullscreen" data-toggle="tooltip"
+                                       class="btn btn-default btn-sm" id="toggleFullScreen">
+                                        <i class="glyphicon glyphicon-fullscreen"></i>
+                                    </a>
+                                </div>
+                                <!-- <div class="btn-group">
+                                    <a data-placement="bottom" data-original-title="E-mail" data-toggle="tooltip"
+                                       class="btn btn-default btn-sm">
+                                        <i class="fa fa-envelope"></i>
+                                        <span class="label label-warning">5</span>
+                                    </a>
+                                    <a data-placement="bottom" data-original-title="Messages" href="#" data-toggle="tooltip"
+                                       class="btn btn-default btn-sm">
+                                        <i class="fa fa-comments"></i>
+                                        <span class="label label-danger">4</span>
+                                    </a>
+                                    <a data-toggle="modal" data-original-title="Help" data-placement="bottom"
+                                       class="btn btn-default btn-sm"
+                                       href="#helpModal">
+                                        <i class="fa fa-question"></i>
+                                    </a>
+                                </div> -->
+                                <div class="btn-group">
+                                    <a href="setting.html" data-toggle="tooltip" data-original-title="Setting" data-placement="bottom"
+                                       class="btn btn-primary btn-sm">
+                                        <i class="fa fa-cog"></i>
+                                    </a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="login.html" data-toggle="tooltip" data-original-title="Logout" data-placement="bottom"
+                                       class="btn btn-metis-1 btn-sm">
+                                        <i class="fa fa-power-off"></i>
+                                    </a>
+                                </div>
+                                <div class="btn-group">
+                                    <a data-placement="bottom" data-original-title="Show / Hide Left" data-toggle="tooltip"
+                                       class="btn btn-primary btn-sm toggle-left" id="menu-toggle">
+                                        <i class="fa fa-bars"></i>
+                                    </a>
+                                    <a data-placement="bottom" data-original-title="Show / Hide Right" data-toggle="tooltip"
+                                       class="btn btn-default btn-sm toggle-right">
+                                        <span class="glyphicon glyphicon-comment"></span>
+                                    </a>
+                                </div>                    
+                            </div>                    
+                    
+                            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    
+                                <!-- .nav -->
+                                <ul class="nav navbar-nav">
+                                    <li><a href="calendar.html">Calendar</a></li>
+                                    <li><a href="claim.html">Claim</a></li>
+                                    <li class="active"><a href="service-job-manage.html">Service</a></li>
+                                    <li><a href="project.html">Project</a></li>
+                                    <li><a href="report.html">Report</a></li>
+                                    <li><a href="faq.html">FAQ</a></li>                   
+                                </ul>
+                                <!-- /.nav -->
+                            </div>
+                        </div>
+                        <!-- /.container-fluid -->
+                    </nav>
+                    <!-- /.navbar -->                        <header class="head">
+                                <div class="search-bar">
+                                    <form class="main-search" action="">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Live Search ...">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary btn-sm text-muted" type="button">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                    <!-- /.main-search -->                                </div>
+                                <!-- /.search-bar -->
+                            <div class="main-bar">
+                                <h3>
+              <i class="fa fa-table"></i>&nbsp;
+            Table
+          </h3>
+                            </div>
+                            <!-- /.main-bar -->
+                        </header>
+                        <!-- /.head -->
+                </div>
+                <!-- /#top -->
+                    <div id="left">
+                        <div class="media user-media bg-dark dker">
+                            <div class="user-media-toggleHover">
+                                <span class="fa fa-user"></span>
+                            </div>
+                            <div class="user-wrapper bg-dark">
+                                <a class="user-link" href="">
+                                    <img class="media-object img-thumbnail user-img" alt="User Picture" src="assets/img/user.gif">
+                                    <span class="label label-danger user-label">16</span>
+                                </a>
+                        
+                                <div class="media-body">
+                                    <h5 class="media-heading">Archie</h5>
+                                    <ul class="list-unstyled user-info">
+                                        <li><a href=""><?php echo $_SESSION['user']; ?></a></li>
+                                        <li>Group : <?php echo $_SESSION['data']['group']; ?><br>
+                                        <li>Last Access : <br>
+                                            <small><i class="fa fa-calendar"></i>&nbsp;16 Mar 16:32</small>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- #menu -->
+                        <ul id="menu" class="bg-blue dker">
+                                  <li class="nav-header">Menu</li>
+                                  <li class="nav-divider"></li>
+                                  <li class="">
+                                    <a href="service-dashboard.html">
+                                      <i class="fa fa-dashboard"></i><span class="link-title">&nbsp;Dashboard</span>
+                                    </a>
+                                  </li>
+                                  <li class="nav-divider"></li>
+                                  <li class="">
+                                    <a href="service-calendar.html">
+                                      <i class="fa fa-dashboard"></i><span class="link-title">&nbsp;Calendar</span>
+                                    </a>
+                                  </li>
+                                  <li class="nav-divider"></li>
+                                  <li class="">
+                                    <a href="service-job-insert.html">
+                                      <i class="fa fa-dashboard"></i><span class="link-title">&nbsp;Insert-Case</span>
+                                    </a>
+                                  </li>
+                                  <li class="nav-divider"></li>
+                                  <li class="">
+                                    <a href="service-job-manage.html">
+                                      <i class="fa fa-dashboard"></i><span class="link-title">&nbsp;Manage-Job</span>
+                                    </a>
+                                  </li>
+                                  <li class="nav-divider"></li>
+                                  <li class="">
+                                    <a href="service-job-report.html">
+                                      <i class="fa fa-dashboard"></i><span class="link-title">&nbsp;Report</span>
+                                    </a>
+                                  </li>                                  
+                                  <li class="nav-divider"></li>
+                                  <li>
+                                    <a href="login.html">
+                                      <i class="fa fa-sign-in"></i>
+                                      <span class="link-title">
+                            Logout
+                            </span>
+                                    </a>
+                                  </li>
+                                  <li></li>
+                                </ul>
+                        <!-- /#menu -->
+                    </div>
+                    <!-- /#left -->
+                <div id="content">
+                    <div class="outer">
+                        <div class="inner bg-light lter">
+                            <!--Begin Datatables-->
+<div class="row">
+  <div class="col-lg-12">
+        <div class="box">
+            <header>
+                <div class="icons"><i class="fa fa-table"></i></div>
+                <h5>Manage Case</h5>
+            </header>
+
+            <?php 
+                require( "config/php_conf.cfg" );
+                $dbh = new PDO('mysql:host='.$servername.';dbname='.$dbname, $username, $password);
+                $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $dbh->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+                $dbh->exec("set names utf8");
+
+                $results = $dbh -> prepare("SELECT * FROM `service_head`");
+                $results -> execute();
+                $result = $results->fetchAll();                                   
+                
+            ?>
+
+            <!-- <div id="collapse4" class="body">
+                <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>Rendering engine</th>
+                        <th>Browser</th>
+                        <th>Platform(s)</th>
+                        <th>Engine version</th>
+                        <th>CSS grade</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                            foreach ($result as $key => $value) {
+                              # code...
+                              echo "<tr>
+                                        <td>".$value['service_id']."</td>
+                                    </tr>";
+
+                            }
+                    ?>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    </tbody>                </table>
+            </div> -->
+
+            <div id="collapse4" class="body">
+                <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>Status</th> 
+                        <th>Urgent</th>                       
+                        <th>Date</th>
+                        <th>Case ID</th>
+                        <th>Subject</th>
+                        <th>Project</th>
+                        <th>Customer</th>                                            
+                        <th>Devices</th>
+                        <th>Meeting</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+
+                                    foreach ($result as $key => $value) {
+                                      # code...
+
+
+                                         if ($_SESSION['data']['group'] == "Admin") {
+                                            # code...
+                                            $get_desc_by_id = "SELECT * FROM `service_details` WHERE `service_id` = '".$value['service_id']."'";
+
+                                            $detail_results = $dbh -> prepare($get_desc_by_id);
+                                            $detail_results -> execute();
+                                            $detail_result = $detail_results->fetchAll();
+                                            $service_details = null;
+                                            foreach ($detail_result as $keys => $values) {                                            
+                                            # code...
+                                            $keys = $keys+1;
+                                            $service_details = $service_details."<br>".
+                                            $keys." : ".$values['type']." : ".$values['brand']." : ".$values['model']." : ".$values['serial']." : ".$values['description'];
+                                            }
+                                            echo "<tr>
+                                                        <td>".$value['status']."</td>
+                                                        <td>".$value['urgent']."</td>
+                                                        <td>".$value['date']."</td>
+                                                        <td>".$value['service_id']."</td>
+                                                        <td>".$value['service_subject']."</td>
+                                                        <td>".$value['estimate_id']." : ".$value['project_name']."</td>
+                                                        <td>".$value['contact_name']." : ".$value['contact_company']." : ".$value['contact_number']."</td>
+                                                        <!-- <td>".$value['description'].$service_details."</td> -->
+                                                        <td>".$service_details."</td>
+                                                        <td>".date('j/M/y', strtotime($value['request_date']))."</td>
+                                                        <td><button type='button' class='btn btn-success updatecase' onclick=''>Update</button></td>
+                                                    </tr>";
+                                         } else {
+                                            # code...
+                                            if ($_SESSION['data']['user_id'] == $value['duty']) {
+                                                # code...
+                                                $get_desc_by_id = "SELECT * FROM `service_details` WHERE `service_id` = '".$value['service_id']."'";
+
+                                                $detail_results = $dbh -> prepare($get_desc_by_id);
+                                                $detail_results -> execute();
+                                                $detail_result = $detail_results->fetchAll();
+                                                $service_details = null;
+                                                foreach ($detail_result as $keys => $values) {                                            
+                                                # code...
+                                                $keys = $keys+1;
+                                                $service_details = $service_details."<br>".
+                                                $keys." : ".$values['type']." : ".$values['brand']." : ".$values['model']." : ".$values['serial']." : ".$values['description'];
+                                                }
+
+                                                echo "<tr>
+                                                        <td>".$value['status']."</td>
+                                                        <td>".$value['urgent']."</td>
+                                                        <td>".date('j/M/y', strtotime($value['date']))."</td>
+                                                        <td>".$value['service_id']."</td>
+                                                        <td>".$value['service_subject']."</td> 
+                                                        <td>".$value['estimate_id']." : ".$value['project_name']."</td>
+                                                        <td>".$value['contact_name']." : ".$value['contact_company']." : ".$value['contact_number']."</td>
+                                                        <td>".$service_details."</td>
+                                                        <td>".date('j/M/y', strtotime($value['request_date']))."</td>
+                                                        <td><button type='button' class='btn btn-success updatecase' onclick=''>Update</button></td>
+                                                    </tr>";
+                                            }
+                                         }           
+
+                                    }
+                            ?>
+                            
+                    </tbody>                
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+<!--End Datatables-->
+
+                        </div>
+                        <!-- /.inner -->
+                    </div>
+                    <!-- /.outer -->
+                </div>
+                <!-- /#content -->
+                    <div id="right" class="bg-light lter">
+                        <div class="alert alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>Warning!</strong> Best check yo self, you're not looking too good.
+                        </div>
+                        <!-- .well well-small -->
+                        <div class="well well-small dark">
+                            <ul class="list-unstyled">
+                                <li>Visitor <span class="inlinesparkline pull-right">1,4,4,7,5,9,10</span></li>
+                                <li>Online Visitor <span class="dynamicsparkline pull-right">Loading..</span></li>
+                                <li>Popularity <span class="dynamicbar pull-right">Loading..</span></li>
+                                <li>New Users <span class="inlinebar pull-right">1,3,4,5,3,5</span></li>
+                            </ul>
+                        </div>
+                        <!-- /.well well-small -->
+                        <!-- .well well-small -->
+                        <div class="well well-small dark">
+                            <button class="btn btn-block">Default</button>
+                            <button class="btn btn-primary btn-block">Primary</button>
+                            <button class="btn btn-info btn-block">Info</button>
+                            <button class="btn btn-success btn-block">Success</button>
+                            <button class="btn btn-danger btn-block">Danger</button>
+                            <button class="btn btn-warning btn-block">Warning</button>
+                            <button class="btn btn-inverse btn-block">Inverse</button>
+                            <button class="btn btn-metis-1 btn-block">btn-metis-1</button>
+                            <button class="btn btn-metis-2 btn-block">btn-metis-2</button>
+                            <button class="btn btn-metis-3 btn-block">btn-metis-3</button>
+                            <button class="btn btn-metis-4 btn-block">btn-metis-4</button>
+                            <button class="btn btn-metis-5 btn-block">btn-metis-5</button>
+                            <button class="btn btn-metis-6 btn-block">btn-metis-6</button>
+                        </div>
+                        <!-- /.well well-small -->
+                        <!-- .well well-small -->
+                        <div class="well well-small dark">
+                            <span>Default</span><span class="pull-right"><small>20%</small></span>
+                        
+                            <div class="progress xs">
+                                <div class="progress-bar progress-bar-info" style="width: 20%"></div>
+                            </div>
+                            <span>Success</span><span class="pull-right"><small>40%</small></span>
+                        
+                            <div class="progress xs">
+                                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+                            </div>
+                            <span>warning</span><span class="pull-right"><small>60%</small></span>
+                        
+                            <div class="progress xs">
+                                <div class="progress-bar progress-bar-warning" style="width: 60%"></div>
+                            </div>
+                            <span>Danger</span><span class="pull-right"><small>80%</small></span>
+                        
+                            <div class="progress xs">
+                                <div class="progress-bar progress-bar-danger" style="width: 80%"></div>
+                            </div>
+                        </div>                    </div>
+                    <!-- /#right -->
+            </div>
+            <!-- /#wrap -->
+            <footer class="Footer bg-dark dker">
+                <p>2016 &copy; Metis Bootstrap Admin Template</p>
+            </footer>
+            <!-- /#footer -->
+            <!-- #helpModal -->
+            <div id="helpModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+            <?php
+                                
+                $get_case_by_user = "SELECT * FROM `service_action`";
+                $results = $dbh -> prepare($get_case_by_user);
+                $results -> execute();
+                $result = $results->fetchAll();
+
+            ?>
+
+            <div id="updateModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Update Case</h4>
+                        </div>
+
+                        <div class="modal-body">
+
+                        <form class="form-horizontal" name="updateform">
+
+                            <div class="form-group">
+                                <label for="text1" class="control-label col-lg-4">Status</label>
+
+                                <div class="col-lg-8">
+                                    <input disabled type="text" name="old_status" class="form-control">
+                                </div>
+                            </div>                
+                            <!-- /.form-group -->
+
+                            <div class="form-group">
+                                <label for="text1" class="control-label col-lg-4">Case ID</label>
+
+                                <div class="col-lg-8">
+                                    <input disabled type="text" name="case_id" class="form-control">
+                                </div>
+                            </div>                
+                            <!-- /.form-group -->
+
+                            <div class="form-group">
+                                <label class="control-label col-lg-4">Update Status <font color="red">*</font></label>
+                                
+                                  <div class="checkbox" >
+                                        <label><input class="uniform" type="radio" name="status" value="Active">&nbsp;&nbsp;Active&nbsp;&nbsp;</label>
+                                        <label><input class="uniform" type="radio" name="status" value="Done">&nbsp;&nbsp;Done&nbsp;&nbsp;</label>                                              
+                                        <label><input class="uniform" type="radio" name="status" value="Cancel">&nbsp;&nbsp;Cancel&nbsp;&nbsp;</label> 
+                                  </div><!-- /.checkbox -->           
+                            </div>                
+                            <!-- /.form-group -->
+
+                            <div class="form-group">
+                                <label for="autosize" class="control-label col-lg-4">Update Details <font color="red">*</font></label>
+
+                                <div class="col-lg-8">
+                                    <textarea id="autosize" name="desc" placeholder="กรอกรายละเอียดต่างๆ เช่น อุปกรณ์ อาการ ปัญหา ฯลฯ" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+
+                            <div class="form-group">
+
+                                <label class="control-label col-lg-4">Assign to</label>
+
+                                <div class="col-lg-8">
+
+                                    <select name="assign" onchange="
+                                    
+                                    var email = this.options[this.selectedIndex].id;                   
+
+                                    document.forms['updateform']['assign_email'].value = email;
+                                    
+                                    " class="input-group chzn-select" tabindex="2">
+                                    <option value="" disabled selected>เลือกผู้รับผิดชอบการบริการนี้</option>
+
+                                    <?php 
+                                        require( "config/php_conf.cfg" );
+                                        $dbh = new PDO('mysql:host='.$servername.';dbname='.$dbname, $username, $password);
+                                        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                        $dbh->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+                                        $dbh->exec("set names utf8");
+
+                                        $results = $dbh -> prepare($get_user);
+                                        $results -> execute();
+                                        $result = $results->fetchAll();
+
+                                        foreach ($result as $key => $value) {
+                                          # code...
+                                          echo "<option id=".$value['email']." value=".$value['user_id'].">".$value['fname']." ".$value['lname']."</option>";
+
+                                        }                    
+                                        $dbh = null;
+                                    ?>
+                                    
+                                    </select> 
+                                
+                                </div>                    
+                            </div>                
+                            <!-- /.form-group -->
+
+                            <div class="form-group">
+                                <label for="text1" class="control-label col-lg-4">Assign to email</label>
+
+                                <div class="col-lg-8">
+                                    <input type="text" name="assign_email" placeholder="กรอกอีเมลล์" class="form-control">
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+
+                        </form>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" onclick="updatecase()">Submit</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>                        
+
+                            <div class="modal-footer">
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                    <table id="action_table" class="table table-bordered table-condensed table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>status.</th>
+                                            <th>Date</th>
+                                            <th>Action by</th>
+                                            <th>Action to</th>
+                                            <th>Desc</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                        </tbody>                
+                                    </table>
+                                    </div>
+                                </div>                
+                                <!-- /.form-group -->
+                            </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+
+            <div id="EditCaseModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                            <h4 class="modal-title">Edit Case</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <form class="form-horizontal" name="editcase">
+
+                                <div class="form-group">
+                                    <label for="text1" class="control-label col-lg-4">Case ID</label>
+
+                                    <div class="col-lg-8">
+                                        <input type="text" name="case_id" disabled="" placeholder="กรอกหัวข้อของการให้บริการ" class="form-control">
+                                    </div>
+                                </div>                
+                                <!-- /.form-group -->
+
+                                <div class="form-group">
+                                    <label for="text1" class="control-label col-lg-4">Subject <font color="red">*</font></label>
+
+                                    <div class="col-lg-8">
+                                        <input type="text" name="subject" placeholder="กรอกหัวข้อของการให้บริการ" class="form-control">
+                                    </div>
+                                </div>                
+                                <!-- /.form-group -->
+
+                                <div class="form-group">
+                                    <label for="text1" class="control-label col-lg-4">Customer Name  <font color="red">*</font></label>
+
+                                    <div class="col-lg-8">
+                                        <input type="text" name="c_name" placeholder="กรอกชื่อผู้ติดต่อ" class="form-control">
+                                    </div>
+                                </div>                
+                                <!-- /.form-group -->
+
+                                <div class="form-group">
+                                    <label for="text1" class="control-label col-lg-4">Customer Contact Number  <font color="red">*</font></label>
+
+                                    <div class="col-lg-8">
+                                        <input type="text" name="c_number" placeholder="กรอกเบอร์สำหรับติดต่อกลับ" class="form-control">
+                                    </div>
+                                </div>                
+                                <!-- /.form-group -->
+
+                                <div class="form-group">
+                                    <label for="text1" class="control-label col-lg-4">Customer Email</label>
+
+                                    <div class="col-lg-8">
+                                        <input type="text" name="c_email" placeholder="กรอกอัเมล user@hostname" class="form-control">
+                                    </div>
+                                </div>                
+                                <!-- /.form-group -->
+
+                                <div class="form-group">
+                                    <label for="text1" class="control-label col-lg-4">Customer Company  <font color="red">*</font></label>
+
+                                    <div class="col-lg-8">
+                                        <input type="text" name="c_company" placeholder="กรอกบริษัทผู้ติดต่อ" class="form-control">
+                                    </div>
+                                </div>                
+                                <!-- /.form-group -->
+
+                                <!-- <div class="form-group">
+                                    <label class="control-label col-lg-4">Customer Company</label>
+                                    <div class="col-lg-8">
+                                      <select placeholder="Choose " class="chzn-select" tabindex="2">            
+                                        <option value="บริษัทลูกค้า" disabled selected>บริษัทลูกค้า</option>
+                                        <option value="Bitec">Bitec</option>
+                                        <option value="LET">LET</option>
+                                        <option value="Inteligent">Inteligent CO.,LTD.</option>
+                                      </select>
+                                      <a href="#addModal" class="btn btn-info btn-xs" data-toggle="modal"><i class="fa fa-plus"></i></a>                      
+                                    </div>
+                                    
+                                </div> -->                
+                                <!-- /.form-group -->
+
+                                <div class="form-group">
+                                    <label for="text1" class="control-label col-lg-4">Project Code  <font color="red">*</font></label>
+
+                                    <div class="col-lg-8">
+                                        <input type="text" name="estimate_id" placeholder="กรอกหมายเลขโครงการ" class="form-control">
+                                    </div>
+                                </div>
+                                <!-- /.form-group -->
+
+                                <div class="form-group">
+                                    <label for="text1" class="control-label col-lg-4">Project Name  <font color="red">*</font></label>
+
+                                    <div class="col-lg-8">
+                                        <input type="text" name="project_name" placeholder="กรอกชื่อโครงการ" class="form-control">
+                                    </div>
+                                </div>
+                                <!-- /.form-group --> 
+                                
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Serverity <font color="red">*</font></label>
+                                    
+                                      <div class="checkbox" >
+                                            <label><input class="uniform" type="radio" name="urgent" id="Low" value="Low">&nbsp;&nbsp;Low&nbsp;&nbsp;</label>
+                                            <label><input class="uniform" type="radio" name="urgent" id="Medium" value="Medium">&nbsp;&nbsp;Medium&nbsp;&nbsp;</label>                                              
+                                            <label><input class="uniform" type="radio" name="urgent" id="High" value="High">&nbsp;&nbsp;High&nbsp;&nbsp;</label> 
+                                      </div><!-- /.checkbox -->           
+                                </div>                
+                                <!-- /.form-group -->
+
+                                <div class="form-group">
+                                    <label for="autosize" class="control-label col-lg-4">Comment</label>
+
+                                    <div class="col-lg-8">
+                                        <textarea id="autosize" name="desc" placeholder="กรอกรายละเอียดต่างๆ เพิ่มเติมหรือ หมายเหตุ เช่น อุปกรณ์ อาการ ปัญหา ฯลฯ" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <!-- /.form-group -->
+                                
+                            </form>
+                        </div>                        
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" onclick="EditCase()//alert('Not work for Now!!'); ">Update</button>
+                            <!-- <button type="button" class="btn btn-success" onclick="EditProduct()//alert('Not work for Now!!'); ">Devices</button> -->
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>                        
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+            <div id="ProductModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                            <h4 class="modal-title">Edit Devices</h4>
+                        </div>
+
+                        <div class="modal-body">
+
+                        <form class="form-horizontal" name="editdevice">
+                            <div id="myinput" class="row form-group"> 
+                                        
+                                <div  class="col-lg-2">
+                                    <!-- <label name="type[]" class="control-label ">Type</label> -->
+                                    <input disabled  type="text" name="type[]" color="red" placeholder='Type' class="form-control">
+                                    <!-- <select disabled  name="type[]" class="input-group chzn-select">
+                                      <option value="" disabled selected>Type</option>                                                  
+                                    </select> -->                                                
+                                </div>
+                                <div  class="col-lg-2">
+                                    <!-- <label name="brand[]" class="control-label ">Brand</label> -->
+                                    <input disabled  type="text" name="brand[]" placeholder='Brand' class="form-control">
+                                    <!-- <select disabled  name="brand[]" class="input-group chzn-select" tabindex="2">            
+                                      <option value="" disabled selected>Brand</option>                                                  
+                                    </select> -->
+                                </div>
+                                <div  class="col-lg-2">
+                                    <input disabled  type="text" name="model[]" placeholder='Model' class="form-control">
+                                    <!-- <select disabled  name="model[]" class="input-group chzn-select" tabindex="2">            
+                                      <option value="" disabled selected>Model</option>                                                  
+                                    </select> -->
+                                </div>
+                                <div  class="col-lg-3">
+                                    <input disabled  type="text" name="serial[]" placeholder='Serial' class="form-control">
+                                </div>
+                                <div  class="col-lg-3">
+                                    <input disabled  type="text" name="desc[]" placeholder='Description' class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="form-group">
+                                    <label for="text1" class="control-label col-lg-4">Project Name  <font color="red">*</font></label>
+
+                                    <div class="col-lg-8">
+                                        <input type="text" name="project_name" placeholder="กรอกชื่อโครงการ" class="form-control">
+                                    </div>
+                                </div>
+                                <!-- /.form-group -->                  
+                    
+                                <div>                      
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-success col-lg-12"" onclick="
+
+                                      addInput('myinput');
+                                      ">+ ADD</button>
+                                </div>
+
+                            </div>
+                            <script type="text/javascript">
+                                          
+                              var counter = 1;
+                              var limit = 20;
+                              function addInput(divName){
+                                   if (counter == limit)  {
+                                        alert("You have reached the limit of adding " + counter + " inputs");
+                                   }
+                                   else {
+                                        var newdiv = document.createElement('div');
+                                        // newdiv.innerHTML = "Entry " + (counter + 1) + " <br><input type='text' name='serial[]' placeholder='กรอกอีเมลล์ผูดูแล' class='form-control'>";
+                                        newdiv.innerHTML = "<br>"+
+                                        // "<div class='col-lg-2'>"+
+                                        //   "<select  name='type[]' class='input-group chzn-select' >"+            
+                                        //     "<option disabled selected>Type</option>"+
+                                        //     "<option >Server</option>"+
+                                        //     "<option >Camera</option>"+
+                                        //     "<option >NVR</option>"+                        
+                                        //   "</select></div>"+
+                                        "<div class='col-lg-2'><input type='text' name='type[]' placeholder='Type' class='form-control'></div>"+
+                                        "<div class='col-lg-2'><input type='text' name='brand[]' placeholder='Brand' class='form-control'></div>"+
+                                        "<div class='col-lg-2'><input type='text' name='model[]' placeholder='Model' class='form-control'></div>"+
+                                        "<div class='col-lg-3'><input type='text' name='serial[]' placeholder='Serial' class='form-control'></div>"+
+                                        "<div class='col-lg-3'><input type='text' name='desc[]' placeholder='Description' class='form-control'></div>";
+                                        document.getElementById(divName).appendChild(newdiv);
+                                        counter++;
+                                   }
+                              }
+
+                            </script>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" onclick="editproductList();//alert('Not work for Now!!'); ">Update</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>                        
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+            <!-- /.modal -->
+            <!-- /#helpModal -->
+            <!--jQuery -->
+            <script src="assets/lib/jquery/jquery.js"></script>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.26.6/js/jquery.tablesorter.min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+
+            <!--Bootstrap -->
+            <script src="assets/lib/bootstrap/js/bootstrap.js"></script>
+            <!-- MetisMenu -->
+            <script src="assets/lib/metismenu/metisMenu.js"></script>
+            <!-- Screenfull -->
+            <script src="assets/lib/screenfull/screenfull.js"></script>
+
+            <!-- Metis core scripts -->
+            <script src="assets/js/core.js"></script>
+            <!-- Metis demo scripts -->
+            <script src="assets/js/app.js"></script>
+                <script>
+                    $(function() {  
+
+                      Metis.MetisTable();
+                      Metis.metisSortable();
+
+                    });
+                </script>
+
+            <script src="assets/js/manage.js"></script>
+
+            <script src="assets/js/style-switcher.js"></script>
+        </body>
+
+</html>
